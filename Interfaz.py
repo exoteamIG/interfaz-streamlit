@@ -379,8 +379,7 @@ with col2:
             }
 
             # Lee la variable BACKEND_URL de Railway; si no existe, usa tu URL por defecto
-            BACKEND_URL = os.getenv("BACKEND_URL", "https://esoplanet01-production-c23ba379.up.railway.app")
-            url_spring = f"{BACKEND_URL}/api/v1/exoplanets/classify"
+            requests.post(f"{BACKEND_URL}/api/v1/exoplanets/classify", json=datos)
             
             with st.spinner("Enviando datos..."):
                 try:
