@@ -3,6 +3,10 @@ import plotly.graph_objects as go
 import requests
 import os
 
+BACKEND_URL = os.getenv(
+    "BACKEND_URL",
+    "https://esoplanet01-production-c23ba379.up.railway.app"
+).rstrip("/")
 # CONFIGURACIÓN INICIAL DE LA INTERFAZ
 st.set_page_config(page_title="Clasificador de Exoplanetas", layout="wide")
 
