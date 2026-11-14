@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 import requests
+import os
 
 # CONFIGURACIÓN INICIAL DE LA INTERFAZ
 st.set_page_config(page_title="Clasificador de Exoplanetas", layout="wide")
@@ -377,11 +378,13 @@ with col2:
                 "koi_kepmag": float(koi_kepmag) if koi_kepmag is not None else 0.0,
             }
 
-            url_spring = "https://esoplanet01-production.up.railway.app/api/v1/exoplanets/classify"
+            # Lee la variable BACKEND_URL de Railway; si no existe, usa tu URL por defecto
+            BACKEND_URL = os.getenv("BACKEND_URL", "esoplanet01-production-c23ba379.up.railway.app")
+            url_spring = f"{BACKEND_URL}/api/v1/exoplanets/classify"
             
             with st.spinner("Enviando datos..."):
                 try:
-                    response = requests.post(url_spring, json=payload)
+                    response = requests.post(url_spring, json=payload, timeout=60)
     
                     if response.status_code == 200:
                         resultado = response.json()
